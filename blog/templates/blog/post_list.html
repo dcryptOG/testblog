@@ -1,0 +1,47 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<style>
+    .post {
+        display: flex;
+        width: 70vw;
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+        text-align: left;
+    }
+
+    .post h1 a {
+        font-size: 2rem;
+        padding: 0;
+    }
+
+    p, .comments {
+        font-size: 0.5rem;
+    }
+
+    
+    @media screen and (max-width: 550px) {
+        .post h1 a {
+        font-size: 1.75rem;
+        padding: 0;
+        }
+
+    }
+
+</style>
+<section>
+
+
+    {% for post in post_list %}
+        <div class="post">
+
+            <h1 class="flex-container-left"><a class="animate-text" href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <div class="date flex-container-left">
+                <p >Published on: {{ post.published_date|date:"D M Y"}}</p>
+            </div>
+            <a class="animate-text flex-container-left comments" href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approve_comments.count }}</a>
+        </div>
+    {% endfor %}
+</section>
+{% endblock %}

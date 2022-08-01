@@ -1,0 +1,63 @@
+{% extends 'blog/base.html' %}
+
+
+{% block content %}
+
+<style>
+
+  input[type=password], input[type=text] {
+      background: transparent;
+      border: 1px solid whitesmoke;
+      border-radius: 2px;
+      /* font-size: 0.5rem; */
+      color: whitesmoke;
+      text-shadow:0px 0px 2px rgba(0,0,0,0.69);
+  }
+  
+
+  input[type=submit] {
+      cursor: pointer;
+      border-radius: 0.1rem;
+  }
+
+  .flex-container>input[type=submit] {
+      border: 0;
+      text-decoration: none;
+      display: flex;
+      flex-wrap: nowrap;
+      /* font-size: 1rem; */
+      padding: 0.5rem 1rem;
+      text-align: center;
+      font-family: 'Russo One', sans-serif;
+      font-weight: bold;
+      background: black;
+      margin: auto;
+      color: whitesmoke;
+  }
+
+  .login {
+    margin-left: 5vw;
+  }
+
+</style>
+
+  <div class="content login">
+
+    <h2 class="animate-text">Please Login: </h2>
+    <h3 class="animate-smoke">(Must be SuperUser, please check admin for issues.)</h3>
+    {% if form.errors %}
+        <p>Your username and password didn't match.Please try again!</p>
+    {% endif %}
+
+    <form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+        {{form.as_p}}
+
+      <div class="flex-container">
+        <input type="submit" class='btn' value="Login"/>
+        <input type="hidden" name="next" value="{{ next }}" />
+      </div>
+
+    </form>
+  </div>
+{% endblock %}
